@@ -1,8 +1,11 @@
 package net.Mega2223.utils;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
 public class imageTools {
     public static BufferedImage createFlipped(BufferedImage image) {
