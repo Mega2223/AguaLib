@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static net.Mega2223.utils.objects.graphRenderer.getImage;
+import static net.Mega2223.utils.objects.graphRenderer.renderWithGrid;
 
 public class graphicTest1 {
 
@@ -22,28 +23,43 @@ public class graphicTest1 {
         List<double[]> eba = new ArrayList<>();
         List<double[]> eba2 = new ArrayList<>();
         List<double[]> eba3 = new ArrayList<>();
+        List<double[]> ebay = new ArrayList<>();
         List<List<double[]>> vai = new ArrayList<>();
+        List<List<double[]>> fui = new ArrayList<>();
+
         vai.add(eba);
         vai.add(eba2);
         vai.add(eba3);
+        fui.add(ebay);
+
         Color[] colors = {Color.orange, Color.green, Color.cyan};
 
-        for (double g = -100; g <= 10000; g = g + 0.04) {
+        for (double g = -40; g <= 40; g = g + .04) {
             double constant = g;
-            eba2.add(new double[]{constant, Math.sin(constant)});
-            eba3.add(new double[]{constant, Math.cos(constant - (constant / 2)) * 2});
-            eba.add(new double[]{constant, Math.sin((constant * constant) / 60)});
+            eba.add(new double[]{constant,Math.cos(constant)*10});
 
-            red = getImage(vai, new Dimension(400, 400), colors);
+
+
+            red = renderWithGrid(vai,fui, new Dimension(400, 400), colors,1);
             Window.setLabel(red);
-            Window.secLabel.setText((int) g + "");// + " : " + (int)constant);
+            Window.secLabel.setText((int) g + "");
 
-            Thread.sleep(10);
+            Thread.sleep(20);
             for (List<double[]> accc : vai) {
-                if (accc.size() > 350) {
+                if (accc.size() > 600) {
                     accc.remove(0);
                 }
             }
+
+
+            List<double[]> first = vai.get(0);
+
+            double minX = first.get(0)[0];
+            double maxX = first.get(0)[0];
+            double minY = first.get(0)[1];
+            double maxY = first.get(0)[1];
+
+
 
         }
 
