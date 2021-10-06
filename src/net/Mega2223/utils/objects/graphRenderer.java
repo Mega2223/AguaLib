@@ -7,12 +7,12 @@ import java.util.List;
 
 import static net.Mega2223.utils.imageTools.createFlipped;
 
-public class graphicRenderer {
+public class graphRenderer {
 
     public List<List<double[]>> values;
     public Dimension dimension;
     public Color[] colours; //britanico pra não dar ambiguidade, genial dmite
-    public graphicRenderer(List<List<double[]>> val, Dimension dims, Color[] colors) {
+    public graphRenderer(List<List<double[]>> val, Dimension dims, Color[] colors) {
         values = val;
         dimension = dims;
         colours = colors;

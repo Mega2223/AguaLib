@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.Mega2223.utils.objects.graphicRenderer.getImage;
+import static net.Mega2223.utils.objects.graphRenderer.getImage;
 
 public class graphicTest1 {
 
