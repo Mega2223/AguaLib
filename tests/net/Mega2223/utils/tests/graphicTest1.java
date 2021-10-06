@@ -34,13 +34,13 @@ public class graphicTest1 {
 
         Color[] colors = {Color.orange, Color.green, Color.cyan};
 
-        for (double g = -40; g <= 40; g = g + .04) {
+        for (double g = -40; g <= 40; g = g + 1) {
             double constant = g;
-            eba.add(new double[]{constant,Math.cos(constant)*10});
+            eba.add(new double[]{constant,constant*constant});
 
 
 
-            red = renderWithGrid(vai,fui, new Dimension(400, 400), colors,1);
+            red = renderWithGrid(vai,fui, new Dimension(400, 400), colors,10);
             Window.setLabel(red);
             Window.secLabel.setText((int) g + "");
 

@@ -59,7 +59,6 @@ public class graphRenderer {
         Graphics graphics = ret.getGraphics();
 
         double loc0X = (-minX) * multIndexX;
-
         double loc0Y = (-minY) * multIndexY;
 
 
@@ -133,8 +132,8 @@ public class graphRenderer {
         }
 
         graphics.setColor(Color.gray);
-        graphics.drawLine((int) loc0X, 0, (int) loc0X, ret.getHeight());
-        graphics.drawLine(0, (int) loc0Y, ret.getWidth(), (int) loc0Y);
+        graphics.drawLine((int) loc0X, 0, (int) loc0X, ret.getHeight()-(ret.getHeight()/100));
+        graphics.drawLine(0, (int) loc0Y, ret.getWidth()- (ret.getWidth()/100), (int) loc0Y);
 
         graphics.dispose();
 
@@ -173,7 +172,7 @@ public class graphRenderer {
 
 
         for(double n = minY; n <= maxY; n = n + frequency){
-            if((int)(n/(n/2)) == 0||n == minY){continue;}
+            if((int)(n/(n/2)) == 0){continue;}
             //System.out.println(n);
             //System.out.println(minX + n);
             //System.out.println(n +" desenhndo " + minY +":"+ maxY);
@@ -184,7 +183,7 @@ public class graphRenderer {
         }
 
         for(double n = minX; n <= maxX; n = n + frequency){
-            if((int)(n/(n/2)) == 0||n == minX){continue;}
+            if((int)(n/(n/2)) == 0){continue;}
             //System.out.println(n);
             //System.out.println(minX + n);
             //System.out.println(n +" desenhndo " + minX +":"+ maxX);
