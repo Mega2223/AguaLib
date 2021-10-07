@@ -42,4 +42,17 @@ public class genericTools {
 
         return finalTweets;
     }
+    public static String getAfterLastCharacter(String what, String afterWhat){
+
+        StringBuilder e = new StringBuilder(what);
+        e.delete(0,e.lastIndexOf(afterWhat));
+        return e.toString();
+    }
+    public static String getBeforerFirstCharacter(String what, String afterWhat){
+
+        StringBuilder e = new StringBuilder(what);
+        e.delete(e.indexOf(afterWhat),e.length());
+        return e.toString();
+    }
+    
 }

@@ -1,11 +1,14 @@
 package net.Mega2223.utils;
 
+import net.Mega2223.utils.objects.graphRenderer;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class imageTools {
     public static BufferedImage createFlipped(BufferedImage image) {
@@ -21,7 +24,18 @@ public class imageTools {
         g.dispose();
         return newImage;
     }
-	
+
+    public static Image getScaledGraph(Dimension legal, int grid, graphRenderer renderer){
+        double larger = 0;
+        if (legal.getHeight() > legal.getWidth()){
+            larger = legal.getHeight();
+        } else {larger = legal.getWidth();}
+
+        renderer.dimension = new Dimension((int)larger,(int)larger); //why
+        final Image readj = renderer.renderWithGrid(new ArrayList<>(),grid).getScaledInstance(legal.getWidth() - 100,legal.getHeight() - 80, BufferedImage.SCALE_AREA_AVERAGING);
+        return readj;
+    }
+
 	public static Image getImageByURL(String url) throws IOException {
         return getImageByURL(new URL(url));
     }

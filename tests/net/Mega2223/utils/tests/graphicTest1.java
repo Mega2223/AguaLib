@@ -32,32 +32,28 @@ public class graphicTest1 {
         vai.add(eba3);
         fui.add(ebay);
 
-        Color[] colors = {Color.orange, Color.green, Color.cyan};
+        Color[] colors = {Color.red, Color.green, Color.cyan};
 
-        for (double g = -40; g <= 40; g = g + 1) {
-            double constant = g;
-            eba.add(new double[]{constant,constant*constant});
+        for (double g = -4; g != -6; g = g + .1) {
+            //h(t)=20t-10t²
+
+            double constant = Math.sin(g);
+
+            eba.add(new double[]{g,constant});
+            eba2.add(new double[]{g,constant/2});
 
 
 
-            red = renderWithGrid(vai,fui, new Dimension(400, 400), colors,10);
+            red = renderWithGrid(vai,fui, new Dimension(400, 400), colors,5);
             Window.setLabel(red);
-            Window.secLabel.setText((int) g + "");
+            Window.secLabel.setText((int) g + " : " + (int)constant);
 
             Thread.sleep(20);
             for (List<double[]> accc : vai) {
-                if (accc.size() > 600) {
+                if (accc.size() > 3000) {
                     accc.remove(0);
                 }
             }
-
-
-            List<double[]> first = vai.get(0);
-
-            double minX = first.get(0)[0];
-            double maxX = first.get(0)[0];
-            double minY = first.get(0)[1];
-            double maxY = first.get(0)[1];
 
 
 

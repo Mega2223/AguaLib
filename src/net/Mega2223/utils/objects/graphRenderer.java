@@ -12,16 +12,19 @@ public class graphRenderer {
     public List<List<double[]>> values;
     public Dimension dimension;
     public Color[] colours; //britanico pra não dar ambiguidade, genial dmite
+
     public graphRenderer(List<List<double[]>> val, Dimension dims, Color[] colors) {
         values = val;
         dimension = dims;
         colours = colors;
     }
 
-    public static BufferedImage getImage(List<List<double[]>> dobros, Dimension dim, Color[] colors) {return
-    getImage(dobros, new ArrayList<List<double[]>>(),dim, colors);
+    public static BufferedImage getImage(List<List<double[]>> dobros, Dimension dim, Color[] colors) {
+        return
+                getImage(dobros, new ArrayList<List<double[]>>(), dim, colors);
     }
-    public static BufferedImage getImage(List<List<double[]>> dobros,List<List<double[]>> linhasNEssenciais, Dimension dim, Color[] colors) {
+
+    public static BufferedImage getImage(List<List<double[]>> dobros, List<List<double[]>> linhasNEssenciais, Dimension dim, Color[] colors) {
         BufferedImage ret = new BufferedImage(dim.height, dim.width, BufferedImage.TYPE_4BYTE_ABGR);
 
         List<double[]> gr = dobros.get(0);
@@ -60,8 +63,6 @@ public class graphRenderer {
 
         double loc0X = (-minX) * multIndexX;
         double loc0Y = (-minY) * multIndexY;
-
-
 
 
         //x1 y1 x2 y2
@@ -132,8 +133,8 @@ public class graphRenderer {
         }
 
         graphics.setColor(Color.gray);
-        graphics.drawLine((int) loc0X, 0, (int) loc0X, ret.getHeight()-(ret.getHeight()/100));
-        graphics.drawLine(0, (int) loc0Y, ret.getWidth()- (ret.getWidth()/100), (int) loc0Y);
+        graphics.drawLine((int) loc0X, 0, (int) loc0X, ret.getHeight() - (ret.getHeight() / 100));
+        graphics.drawLine(0, (int) loc0Y, ret.getWidth() - (ret.getWidth() / 100), (int) loc0Y);
 
         graphics.dispose();
 
@@ -142,7 +143,7 @@ public class graphRenderer {
         return createFlipped(ret);
     }
 
-    public static BufferedImage renderWithGrid(List<List<double[]>> dobros,List<List<double[]>> linhasNEssenciais, Dimension dim, Color[] colors,double frequency){
+    public static BufferedImage renderWithGrid(List<List<double[]>> dobros, List<List<double[]>> linhasNEssenciais, Dimension dim, Color[] colors, double frequency) {
 
         List<double[]> first = dobros.get(0);
         List<List<double[]>> linhasNEssenciaisB = new ArrayList<>();
@@ -171,25 +172,29 @@ public class graphRenderer {
         }
 
 
-        for(double n = minY; n <= maxY; n = n + frequency){
-            if((int)(n/(n/2)) == 0){continue;}
+        for (double n = minY; n <= maxY; n = n + frequency) {
+            if ((int) (n / (n / 2)) == 0) {
+                continue;
+            }
             //System.out.println(n);
             //System.out.println(minX + n);
             //System.out.println(n +" desenhndo " + minY +":"+ maxY);
             List<double[]> eb = new ArrayList<>();
-            eb.add(new double[]{maxX,n});
-            eb.add(new double[]{minX,n});
+            eb.add(new double[]{maxX, n});
+            eb.add(new double[]{minX, n});
             linhasNEssenciaisB.add(eb);
         }
 
-        for(double n = minX; n <= maxX; n = n + frequency){
-            if((int)(n/(n/2)) == 0){continue;}
+        for (double n = minX; n <= maxX; n = n + frequency) {
+            if ((int) (n / (n / 2)) == 0) {
+                continue;
+            }
             //System.out.println(n);
             //System.out.println(minX + n);
             //System.out.println(n +" desenhndo " + minX +":"+ maxX);
             List<double[]> eb = new ArrayList<>();
-            eb.add(new double[]{n,minY});
-            eb.add(new double[]{n,maxY});
+            eb.add(new double[]{n, minY});
+            eb.add(new double[]{n, maxY});
             linhasNEssenciaisB.add(eb);
         }
 
@@ -232,6 +237,14 @@ public class graphRenderer {
         }
 
         return ret;
+    }
+
+    /*
+    public static BufferedImage renderWithGrid(List<List<double[]>> dobros,List<List<double[]>> linhasNEssenciais, Dimension dim, Color[] colors,double frequency){
+
+     */
+    public BufferedImage renderWithGrid(List<List<double[]>> extraLanes,int gridIndex){//todo faz isso mais
+        return renderWithGrid(this.values,extraLanes,this.dimension,this.colours,gridIndex);
     }
 
     //todo coloca isso em outra classe
