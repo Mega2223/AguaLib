@@ -243,7 +243,7 @@ public class graphRenderer {
     public static BufferedImage renderWithGrid(List<List<double[]>> dobros,List<List<double[]>> linhasNEssenciais, Dimension dim, Color[] colors,double frequency){
 
      */
-    public BufferedImage renderWithGrid(List<List<double[]>> extraLanes,int gridIndex){//todo faz isso mais
+    public BufferedImage renderWithGrid(List<List<double[]>> extraLanes,double gridIndex){//todo faz isso mais
         return renderWithGrid(this.values,extraLanes,this.dimension,this.colours,gridIndex);
     }
 

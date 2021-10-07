@@ -32,7 +32,7 @@ public class imageTools {
         } else {larger = legal.getWidth();}
 
         renderer.dimension = new Dimension((int)larger,(int)larger); //why
-        final Image readj = renderer.renderWithGrid(new ArrayList<>(),grid).getScaledInstance(legal.getWidth() - 100,legal.getHeight() - 80, BufferedImage.SCALE_AREA_AVERAGING);
+        final Image readj = renderer.renderWithGrid(new ArrayList<>(),grid).getScaledInstance((int)legal.getWidth(),(int)legal.getHeight(), BufferedImage.SCALE_AREA_AVERAGING);
         return readj;
     }
 
