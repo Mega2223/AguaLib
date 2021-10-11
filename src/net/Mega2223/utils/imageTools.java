@@ -1,6 +1,6 @@
 package net.Mega2223.utils;
 
-import net.Mega2223.utils.objects.graphRenderer;
+import net.Mega2223.utils.objects.GraphRenderer;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class imageTools {
+public class ImageTools {
     public static BufferedImage createFlipped(BufferedImage image) {
         AffineTransform at = new AffineTransform();
         at.concatenate(AffineTransform.getScaleInstance(1, -1));
@@ -25,7 +25,7 @@ public class imageTools {
         return newImage;
     }
 
-    public static Image getScaledGraph(Dimension legal, int grid, graphRenderer renderer){
+    public static Image getScaledGraph(Dimension legal, double grid, GraphRenderer renderer){
         double larger = 0;
         if (legal.getHeight() > legal.getWidth()){
             larger = legal.getHeight();
@@ -43,7 +43,7 @@ public class imageTools {
     public static Image getImageByURL(URL url) throws IOException {
         System.setProperty("http.agent", "Chrome");
         //sério isso?
-        // isso é prova definitiva que HTTP é coisa do demônio
+        //isso é prova definitiva que HTTP é coisa do demônio
         //mano eu to mt puto vai se fuder era so fingir que era a porra do Chrome
         return ImageIO.read(url);
     }

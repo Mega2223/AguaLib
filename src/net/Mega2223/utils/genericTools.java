@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class genericTools {
+public class GenericTools {
 
     public static String ConvertToHTML(String[] eee) {
         String end = "";
@@ -53,6 +53,9 @@ public class genericTools {
         StringBuilder e = new StringBuilder(what);
         e.delete(e.indexOf(afterWhat),e.length());
         return e.toString();
+    }
+    public static boolean isNumber(String string){
+        try{Integer.parseInt(string); return true;} catch (NumberFormatException e){return false;}
     }
     
 }

@@ -5,15 +5,15 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.Mega2223.utils.imageTools.createFlipped;
+import static net.Mega2223.utils.ImageTools.createFlipped;
 
-public class graphRenderer {
+public class GraphRenderer {
 
     public List<List<double[]>> values;
     public Dimension dimension;
     public Color[] colours; //britanico pra não dar ambiguidade, genial dmite
 
-    public graphRenderer(List<List<double[]>> val, Dimension dims, Color[] colors) {
+    public GraphRenderer(List<List<double[]>> val, Dimension dims, Color[] colors) {
         values = val;
         dimension = dims;
         colours = colors;
@@ -25,7 +25,9 @@ public class graphRenderer {
     }
 
     public static BufferedImage getImage(List<List<double[]>> dobros, List<List<double[]>> linhasNEssenciais, Dimension dim, Color[] colors) {
-        BufferedImage ret = new BufferedImage(dim.height, dim.width, BufferedImage.TYPE_4BYTE_ABGR);
+        BufferedImage ret = new BufferedImage(dim.width, dim.height, BufferedImage.TYPE_4BYTE_ABGR);
+
+        System.out.println(dim);
 
         List<double[]> gr = dobros.get(0);
 
@@ -35,7 +37,7 @@ public class graphRenderer {
         double maxY = gr.get(0)[1];
 
         for (List<double[]> act : dobros) {
-            for (double e[] : act) {
+            for (double[] e : act) {
                 if (e[0] > maxX) {
                     maxX = e[0];
                 }
@@ -113,7 +115,7 @@ public class graphRenderer {
         ant = null;
         int ind = 0;
         for (List<double[]> act : translated) {
-            graphics.setColor(colors[ind]);
+            try{graphics.setColor(colors[ind]);}catch (ArrayIndexOutOfBoundsException ex){throw ex;}
             for (double[] inte : act) {
                 if (ant == null) {
                     ant = inte;
@@ -155,7 +157,7 @@ public class graphRenderer {
         double maxY = first.get(0)[1];
 
         for (List<double[]> act : dobros) {
-            for (double e[] : act) {
+            for (double[] e : act) {
                 if (e[0] > maxX) {
                     maxX = e[0];
                 }
@@ -211,7 +213,7 @@ public class graphRenderer {
         double maxY = first.get(0)[1];
 
         for (List<double[]> act : gr) {
-            for (double e[] : act) {
+            for (double[] e : act) {
                 if (e[0] > maxX) {
                     maxX = e[0];
                 }
@@ -230,7 +232,7 @@ public class graphRenderer {
 
         for (List<double[]> act : gr) {
             List<double[]> fin = new ArrayList<>();
-            for (double e[] : act) {
+            for (double[] e : act) {
                 fin.add(new double[]{e[0] - minX, e[1] - minY});
             }
             ret.add(fin);

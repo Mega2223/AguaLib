@@ -1,6 +1,6 @@
 package net.Mega2223.utils.tests;
 
-import net.Mega2223.utils.genericTools;
+import net.Mega2223.utils.GenericTools;
 
 import java.util.List;
 
@@ -244,7 +244,7 @@ public class twitterTest1 {
 
     public static void main(String[] args) {
 
-        List<String> a = genericTools.tweetifyText(splitWhat(), 180);
+        List<String> a = GenericTools.tweetifyText(splitWhat(), 180);
 
         for(String f : a){
             System.out.println(f);
