@@ -53,7 +53,7 @@ public class graphicTest2 {
             GraphRenderer renderer = new GraphRenderer(values,new Dimension(jFrame.getWidth()-60, jFrame.getHeight()-60),colors);
             Image rendered;
             //rendered = ImageTools.getScaledGraph(new Dimension(jFrame.getWidth()-60, jFrame.getHeight()-60),1,renderer);
-            rendered = renderer.renderWithGrid(new ArrayList<>(),1);
+            rendered = renderer.renderWithGrid(new ArrayList<>(),new double[]{1,0.2});
             jLabel.setIcon(new ImageIcon(rendered));
         }
     }

@@ -144,8 +144,11 @@ public class GraphRenderer {
         //System.out.println("==================================");
         return createFlipped(ret);
     }
-
     public static BufferedImage renderWithGrid(List<List<double[]>> dobros, List<List<double[]>> linhasNEssenciais, Dimension dim, Color[] colors, double frequency) {
+        return renderWithGrid(dobros,linhasNEssenciais,dim,colors,new double[]{frequency,frequency});
+    }
+
+    public static BufferedImage renderWithGrid(List<List<double[]>> dobros, List<List<double[]>> linhasNEssenciais, Dimension dim, Color[] colors, double frequency[]) {
 
         List<double[]> first = dobros.get(0);
         List<List<double[]>> linhasNEssenciaisB = new ArrayList<>();
@@ -174,7 +177,7 @@ public class GraphRenderer {
         }
 
 
-        for (double n = minY; n <= maxY; n = n + frequency) {
+        for (double n = minY; n <= maxY; n = n + frequency[1]) {
             if ((int) (n / (n / 2)) == 0) {
                 continue;
             }
@@ -187,7 +190,7 @@ public class GraphRenderer {
             linhasNEssenciaisB.add(eb);
         }
 
-        for (double n = minX; n <= maxX; n = n + frequency) {
+        for (double n = minX; n <= maxX; n = n + frequency[0]) {
             if ((int) (n / (n / 2)) == 0) {
                 continue;
             }
@@ -245,11 +248,14 @@ public class GraphRenderer {
     public static BufferedImage renderWithGrid(List<List<double[]>> dobros,List<List<double[]>> linhasNEssenciais, Dimension dim, Color[] colors,double frequency){
 
      */
+
     public BufferedImage renderWithGrid(List<List<double[]>> extraLanes,double gridIndex){//todo faz isso mais
+        return renderWithGrid(this.values,extraLanes,this.dimension,this.colours,new double[]{gridIndex,gridIndex});
+    }
+    public BufferedImage renderWithGrid(List<List<double[]>> extraLanes,double gridIndex[]){//todo faz isso mais
         return renderWithGrid(this.values,extraLanes,this.dimension,this.colours,gridIndex);
     }
 
-    //todo coloca isso em outra classe
 
     public BufferedImage renderImage() {
         return getImage(values, dimension, colours);
