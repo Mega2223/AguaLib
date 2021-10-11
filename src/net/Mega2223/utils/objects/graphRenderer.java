@@ -249,10 +249,10 @@ public class GraphRenderer {
 
      */
 
-    public BufferedImage renderWithGrid(List<List<double[]>> extraLanes,double gridIndex){//todo faz isso mais
+    public BufferedImage renderWithGrid(List<List<double[]>> extraLanes,double gridIndex){
         return renderWithGrid(this.values,extraLanes,this.dimension,this.colours,new double[]{gridIndex,gridIndex});
     }
-    public BufferedImage renderWithGrid(List<List<double[]>> extraLanes,double gridIndex[]){//todo faz isso mais
+    public BufferedImage renderWithGrid(List<List<double[]>> extraLanes,double gridIndex[]){
         return renderWithGrid(this.values,extraLanes,this.dimension,this.colours,gridIndex);
     }
 
