@@ -114,8 +114,12 @@ public class GraphRenderer {
 
         ant = null;
         int ind = 0;
+        int colorIndex = 0;
         for (List<double[]> act : translated) {
-            try{graphics.setColor(colors[ind]);}catch (ArrayIndexOutOfBoundsException ex){throw ex;}
+            try{graphics.setColor(colors[ind]);}catch (ArrayIndexOutOfBoundsException ex){
+                colorIndex = 0;
+            }
+            colorIndex++;
             for (double[] inte : act) {
                 if (ant == null) {
                     ant = inte;
