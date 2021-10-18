@@ -70,14 +70,14 @@ public class graphicTest1 {
                 }
             }
 
-
+            eba2.add(new double[]{g,Math.tan(n)});
 
             //todo debugger classe
             GraphRenderer rend = new GraphRenderer(vai, new Dimension(400, 400), colors);
 
             Dimension dim = new Dimension(Window.getWidth()-30,  + Window.getHeight()-80);
 
-            red = ImageTools.getScaledGraph(dim, 25, rend);
+            red = rend.renderWithGrid(new ArrayList<>(), new double[]{100,50});
             Window.setLabel(red);
             Window.secLabel.setText((int) g +"");//+ " : " + (int)constant);
 
