@@ -155,6 +155,19 @@ public class GraphRenderer {
     public static BufferedImage renderWithGrid(List<List<double[]>> dobros, List<List<double[]>> linhasNEssenciais, Dimension dim, Color[] colors, double frequency[]) {
 
         List<double[]> first = dobros.get(0);
+        if (first.size() == 0){
+            boolean achei = false;
+            int analise = 1;
+            while (!achei){
+                if(dobros.get(analise).size() != 0){
+                    first = dobros.get(analise);
+                    achei = true;
+                }
+            }
+        }
+
+        if (first.size() == 0){return null;}
+
         List<List<double[]>> linhasNEssenciaisB = new ArrayList<>();
         linhasNEssenciaisB.addAll(linhasNEssenciais);
 
