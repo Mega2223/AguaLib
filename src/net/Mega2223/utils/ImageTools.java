@@ -5,6 +5,7 @@ import net.Mega2223.utils.objects.GraphRenderer;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +28,12 @@ public class ImageTools {
     }
 
     public static Image createFlipped(Image image){
-        return createFlipped(image);
+        BufferedImage bufferedImage = new BufferedImage(
+                image.getWidth(null),
+                image.getHeight(null),
+                BufferedImage.TYPE_4BYTE_ABGR);
+        bufferedImage.createGraphics().drawImage(image,0,0,null);
+        return createFlipped(bufferedImage);
     }
 
     public static Image getScaledGraph(Dimension legal, double grid, GraphRenderer renderer){
@@ -39,6 +45,22 @@ public class ImageTools {
         renderer.dimension = new Dimension((int)larger,(int)larger); //why
         final Image readj = renderer.renderWithGrid(new ArrayList<>(),grid).getScaledInstance((int)legal.getWidth(),(int)legal.getHeight(), BufferedImage.SCALE_AREA_AVERAGING);
         return readj;
+    }
+
+    public static BufferedImage rotateImage(double degrees, BufferedImage image){
+        double rads = Math.toRadians(degrees);
+        double sin = Math.abs(Math.sin(rads));
+        double cos = Math.abs(Math.cos(rads));
+        int w = (int) Math.floor(image.getWidth() * cos + image.getHeight() * sin);
+        int h = (int) Math.floor(image.getHeight() * cos + image.getWidth() * sin);
+        BufferedImage rotatedImage = new BufferedImage(w, h, image.getType());
+        AffineTransform at = new AffineTransform();
+        at.translate(w / 2, h / 2);
+        at.rotate(rads,0, 0);
+        at.translate(-image.getWidth() / 2, -image.getHeight() / 2);
+        AffineTransformOp rotateOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+        rotateOp.filter(image,rotatedImage);
+        return rotatedImage;
     }
 
 	public static Image getImageByURL(String url) throws IOException {
