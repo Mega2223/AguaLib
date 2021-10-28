@@ -26,6 +26,10 @@ public class ImageTools {
         return newImage;
     }
 
+    public static Image createFlipped(Image image){
+        return createFlipped(image);
+    }
+
     public static Image getScaledGraph(Dimension legal, double grid, GraphRenderer renderer){
         double larger = 0;
         if (legal.getHeight() > legal.getWidth()){
