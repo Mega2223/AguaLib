@@ -47,6 +47,11 @@ public class ImageTools {
         return readj;
     }
 
+    public static BufferedImage getBufferedImage(Image img){
+        BufferedImage ret = new BufferedImage(img.getWidth(null),img.getHeight(null),BufferedImage.TYPE_4BYTE_ABGR);
+        ret.getGraphics().drawImage(img, 0, 0, null);
+        return ret;
+    }
     public static BufferedImage rotateImage(double degrees, BufferedImage image){
         double rads = Math.toRadians(degrees);
         double sin = Math.abs(Math.sin(rads));
@@ -58,7 +63,7 @@ public class ImageTools {
         at.translate(w / 2, h / 2);
         at.rotate(rads,0, 0);
         at.translate(-image.getWidth() / 2, -image.getHeight() / 2);
-        AffineTransformOp rotateOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+        AffineTransformOp rotateOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
         rotateOp.filter(image,rotatedImage);
         return rotatedImage;
     }
