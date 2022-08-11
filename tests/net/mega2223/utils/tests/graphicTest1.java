@@ -1,18 +1,17 @@
-package net.Mega2223.utils.tests;
+package net.mega2223.utils.tests;
 
-import net.Mega2223.utils.ImageTools;
-import net.Mega2223.utils.objects.GraphRenderer;
+import net.mega2223.utils.ImageTools;
+import net.mega2223.utils.objects.GraphRenderer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static net.Mega2223.utils.objects.GraphRenderer.getImage;
-import static net.Mega2223.utils.objects.GraphRenderer.renderWithGrid;
+import static net.mega2223.utils.objects.GraphRenderer.getImage;
+import static net.mega2223.utils.objects.GraphRenderer.renderWithGrid;
 
 public class graphicTest1 {
 

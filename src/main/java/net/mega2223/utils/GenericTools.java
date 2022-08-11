@@ -1,6 +1,5 @@
-package net.Mega2223.utils;
+package net.mega2223.utils;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 

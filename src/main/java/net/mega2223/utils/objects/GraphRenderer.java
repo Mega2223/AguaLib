@@ -1,11 +1,11 @@
-package net.Mega2223.utils.objects;
+package net.mega2223.utils.objects;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.Mega2223.utils.ImageTools.createFlipped;
+import static net.mega2223.utils.ImageTools.createFlipped;
 
 public class GraphRenderer {
 
@@ -151,6 +151,7 @@ public class GraphRenderer {
     public static BufferedImage renderWithGrid(List<List<double[]>> dobros, List<List<double[]>> linhasNEssenciais, Dimension dim, Color[] colors, double frequency) {
         return renderWithGrid(dobros,linhasNEssenciais,dim,colors,new double[]{frequency,frequency});
     }
+
 
     public static BufferedImage renderWithGrid(List<List<double[]>> dobros, List<List<double[]>> linhasNEssenciais, Dimension dim, Color[] colors, double frequency[]) {
 

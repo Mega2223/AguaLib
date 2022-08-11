@@ -1,6 +1,6 @@
-package net.Mega2223.utils.tests;
+package net.mega2223.utils.tests;
 
-import net.Mega2223.utils.GenericTools;
+import net.mega2223.utils.GenericTools;
 
 import java.util.List;
 

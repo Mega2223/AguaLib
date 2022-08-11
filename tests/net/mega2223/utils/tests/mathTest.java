@@ -1,12 +1,11 @@
-package net.Mega2223.utils.tests;
+package net.mega2223.utils.tests;
 
-import net.Mega2223.utils.objects.GraphRenderer;
+import net.mega2223.utils.objects.GraphRenderer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.jar.JarEntry;
 
 public class mathTest {
 

@@ -1,4 +1,4 @@
-package net.Mega2223.utils.objects;
+package net.mega2223.utils.objects;
 
 public class Debugger {
     public static final int DEBUG_EVERYTHING = 0;
