@@ -1,16 +1,12 @@
-package net.Mega2223.utils.tests;
+package net.mega2223.utils.tests;
 
-import net.Mega2223.utils.ImageTools;
-import net.Mega2223.utils.objects.GraphRenderer;
+import net.mega2223.utils.objects.GraphRenderer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class graphicTest2 {

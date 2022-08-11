@@ -1,4 +1,4 @@
-package net.Mega2223.neural.neuralLib;
+package net.mega2223.neural.neuralLib;
 
 import java.util.ArrayList;
 import java.util.List;

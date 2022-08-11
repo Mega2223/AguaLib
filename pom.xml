@@ -6,7 +6,7 @@
 
     <groupId>net.Mega2223</groupId>
     <artifactId>aguaLib</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -20,7 +20,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>net.Mega2223.utils.tests.mathTest</mainClass>
+                            <mainClass>mathTest</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

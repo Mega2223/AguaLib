@@ -1,4 +1,4 @@
-package net.Mega2223.neural.neuralLib;
+package net.mega2223.neural.neuralLib;
 
 public class Matrix {
 

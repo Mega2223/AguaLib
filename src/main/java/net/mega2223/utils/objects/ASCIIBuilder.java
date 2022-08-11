@@ -1,8 +1,4 @@
-package net.Mega2223.utils.objects;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+package net.mega2223.utils.objects;
 
 public class ASCIIBuilder {/*
     public BufferedImage toConvert;

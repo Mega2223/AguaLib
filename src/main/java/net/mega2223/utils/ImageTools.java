@@ -1,6 +1,6 @@
-package net.Mega2223.utils;
+package net.mega2223.utils;
 
-import net.Mega2223.utils.objects.GraphRenderer;
+import net.mega2223.utils.objects.GraphRenderer;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
