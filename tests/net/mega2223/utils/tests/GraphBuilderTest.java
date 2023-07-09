@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GraphBuilderTest {
@@ -20,6 +21,7 @@ public class GraphBuilderTest {
             lines.get(0).add(new Double[]{i,Math.sin(i)});
             lines.get(1).add(new Double[]{i,Math.cos(i)});
         }
+        List<String> subs = Arrays.asList("Sin","Cos");
 
         double[][][] data = GraphBuilder.toDataFormat(lines);
 
@@ -28,7 +30,13 @@ public class GraphBuilderTest {
         colors.add(Color.red);
         BufferedImage graph = GraphBuilder.buildPureGraph(data,colors,300,300);
         BufferedImage aux = GraphBuilder.buildAuxiliarLines(data,Color.gray,new double[]{3.14/2,0.5},300,300);
-        new TestWindow(GraphBuilder.transpose(graph,aux)).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        BufferedImage transpose = GraphBuilder.transpose(graph, aux);
+        //GraphBuilder.buildCorners(transpose);
+        BufferedImage sub = GraphBuilder.buildSubs(transpose,subs,colors,.5,GraphBuilder.DIRECTION_RIGHT);
+        //GraphBuilder.buildCorners(sub);
+        TestWindow testWindow = new TestWindow(sub);
+        testWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        testWindow.pack();
 
     }
 
