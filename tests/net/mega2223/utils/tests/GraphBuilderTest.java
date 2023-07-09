@@ -26,8 +26,9 @@ public class GraphBuilderTest {
         ArrayList<Color> colors = new ArrayList<Color>();
         colors.add(Color.blue);
         colors.add(Color.red);
-        BufferedImage graph = GraphBuilder.buildPureGraph(data,colors,1000,1000);
-        new TestWindow(graph).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        BufferedImage graph = GraphBuilder.buildPureGraph(data,colors,300,300);
+        BufferedImage aux = GraphBuilder.buildAuxiliarLines(data,Color.gray,new double[]{3.14/2,0.5},300,300);
+        new TestWindow(GraphBuilder.transpose(graph,aux)).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
 
