@@ -38,20 +38,26 @@ public class GraphBuilder {
         g2d.setFont(ac);
 
         double[] estimatedTextSize = getEstimatives(ac,subs);
-        double[] writeStartingPoint = {};
+        double[] writeStartingPoint = {
+                corner[0] + ((float) corner[2] - corner[0])/2 - (estimatedTextSize[0]/2),
+                corner[1] +((float) corner[3] - corner[1])/2 - (estimatedTextSize[1]/2)
+        };
+        System.out.println();
         for (int i = 0; i < subs.size(); i++) {
-            g2d.setColor(colors.get(i));
-            g2d.drawString(subs.get(i),corner[0], corner[1]+(i*ac.getSize())+ ac.getSize());
+            g2d.setColor(colors.get(i%colors.size()));
+            g2d.drawString(subs.get(i), (int) (writeStartingPoint[0])
+                    ,(int) (writeStartingPoint[1]+(estimatedTextSize[1]*i)));
         }
 
         return ret;
     }
 
     private static double[] getEstimatives(Font font, List<String> data){
+        //todo more accurate estumatives
         double estimatedYSpace = font.getSize() * data.size();
         double estimatedXSpace = 0;
         for(String ac : data){estimatedXSpace = Math.max(estimatedXSpace,ac.length()*font.getSize());}
-        return new double[]{estimatedXSpace,estimatedYSpace};
+        return new double[]{estimatedXSpace/2,estimatedYSpace/2};
     }
 
     private static double[] genTransSub(int dir){
@@ -76,19 +82,15 @@ public class GraphBuilder {
         int dX = image.getWidth(), dY = image.getHeight();
         double[] boundaries = getBoundaries(data);
         double[] ranges = {boundaries[MAX_X] - boundaries[MIN_X], boundaries[MAX_Y] - boundaries[MIN_Y]};
-
         graphics2D.setColor(auxColor);
-
         for(double x = boundaries[MIN_X]; x < boundaries[MAX_X]; x+= intervals[0]){
-            double tr = (x-boundaries[MIN_X])/(boundaries[MAX_X])*(dX/2.0);
+            double tr = (x - boundaries[MIN_X])/(ranges[0])*dX;
             graphics2D.drawLine((int) tr,0, (int) tr,dY);
         }
-
-        for(double y = boundaries[MIN_Y]; y < boundaries[MAX_Y]; y+= intervals[1]){
-            double tr = dY - ((y-boundaries[MIN_Y])/(boundaries[MAX_Y])*(dY/2.0));
-            graphics2D.drawLine(0, (int) tr,dY, (int) tr);
+        for(double y = boundaries[MIN_Y]; y < boundaries[MAX_Y]; y+= intervals[1]) {
+            double tr = dX - (y - boundaries[MIN_Y]) / (ranges[1]) * dY;
+            graphics2D.drawLine(0, (int) tr, dY, (int) tr);
         }
-
         return image;
     }
 
@@ -105,10 +107,10 @@ public class GraphBuilder {
             double[][] line = data[i];
             double[][] translated = new double[line.length][2];
             for (int l = 0; l < line.length; l++) {
-                translated[l][0] = (data[i][l][0]-boundaries[MIN_X])/(boundaries[MAX_X])*(dX/2.0);
-                translated[l][1] = (dY-(data[i][l][1]-boundaries[MIN_Y])/(boundaries[MAX_Y])*(dY/2.0));
+                translated[l][0] = (data[i][l][0] - boundaries[MIN_X])/(ranges[0])*dX;
+                translated[l][1] = (1-(data[i][l][1] - boundaries[MIN_Y])/(ranges[1]))*dY;
             }
-            graphics2D.setColor(colors.get(i));
+            graphics2D.setColor(colors.get(i% colors.size()));
             for (int l = 1; l < translated.length; l++) {
                 graphics2D.drawLine((int) translated[l-1][0], (int) translated[l-1][1], (int) translated[l][0], (int) translated[l][1]);
             }
