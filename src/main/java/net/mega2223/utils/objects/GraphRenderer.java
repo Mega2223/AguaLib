@@ -9,6 +9,10 @@ import java.util.List;
 
 import static net.mega2223.utils.ImageTools.createFlipped;
 
+/**This library still works but it's not very sharp
+ * Use GraphBuilder instead
+ * */
+@Deprecated
 public class GraphRenderer {
 
     protected static final int GLOBAL_CONVERTION_RATE_DIFFERENCE = 100;
