@@ -42,12 +42,80 @@ public class GraphBuilder {
                 corner[0] + ((float) corner[2] - corner[0])/2 - (estimatedTextSize[0]/2),
                 corner[1] +((float) corner[3] - corner[1])/2 - (estimatedTextSize[1]/2)
         };
-        System.out.println();
         for (int i = 0; i < subs.size(); i++) {
             g2d.setColor(colors.get(i%colors.size()));
             g2d.drawString(subs.get(i), (int) (writeStartingPoint[0])
                     ,(int) (writeStartingPoint[1]+(estimatedTextSize[1]*i)));
         }
+
+        return ret;
+    }
+
+    public static BufferedImage buildAxisCaptions(BufferedImage renderedGraph, double[][][] data, double[] interval, List<String> xAxis, List<String> yAxis, int dX, int dY, int amount, Color color, Font font){
+
+        final int sX = renderedGraph.getWidth(), sY = renderedGraph.getHeight();
+        BufferedImage ret = addPixelsToImage(addPixelsToImage(renderedGraph,dX, amount),dY, amount);int[] imageTranslation = new int[2];
+
+        double[] boundaries = getBoundaries(data);
+
+        Graphics2D graphics2D = ret.createGraphics();
+        int rX = ret.getWidth(), rY = ret.getHeight();
+
+        double[] ranges = {boundaries[MAX_X] - boundaries[MIN_X], boundaries[MAX_Y] - boundaries[MIN_Y]};
+        graphics2D.setColor(color);
+        graphics2D.setFont(font);
+        int g = 0;
+        for(double x = boundaries[MIN_X]; x < boundaries[MAX_X]; x+= interval[0]){
+            double tr = (x - boundaries[MIN_X])/(ranges[0])*sX;
+            String str = xAxis.get(g % xAxis.size());
+            float[] estimative = getEstimative(font, str, graphics2D);
+            int[] tra = generateDirectionalTranslation(dX,dY,amount,sX,(int)estimative[1]-5,(int)estimative[1],ORIENTATION_X_PARALLEL);
+
+            graphics2D.drawString(str, (int) tr + tra[0] , tra[1]);
+            g++;
+        }
+        g=0;
+        for(double y = boundaries[MAX_Y]-interval[1]; y > boundaries[MIN_Y] - interval[1]; y-= interval[1]) {
+            double tr = (y - boundaries[MIN_Y])/(ranges[1])*sY;
+            String str = yAxis.get(g % yAxis.size());
+            float[] estimative = getEstimative(font, str, graphics2D);
+            int[] tra = generateDirectionalTranslation(dX,dY,amount,sY,(int)estimative[0]+5,(int)estimative[1],ORIENTATION_Y_PARALLEL);
+            System.out.println(tra[1]);
+            graphics2D.drawString(str,tra[0],(int)tr + tra[1]);
+            g++;
+        }
+
+        return ret;
+    }
+
+    public static BufferedImage addPixelsToImage(BufferedImage img, int direction, int amount){
+        int dX = img.getWidth(),dY = img.getHeight();
+
+        if(direction == DIRECTION_UP || direction == DIRECTION_DOWN){
+            dY += amount;
+        }
+        else if(direction == DIRECTION_LEFT || direction == DIRECTION_RIGHT){
+            dX += amount;
+        } else {return null;}
+
+        BufferedImage ret = new BufferedImage(dX,dY,img.getType());
+        double[] trans = genTransSub(direction);
+
+        switch (direction){
+            case DIRECTION_RIGHT:
+                transpose(ret,img,0,0);
+                break;
+            case DIRECTION_LEFT:
+                transpose(ret,img,amount,0);
+                break;
+            case DIRECTION_DOWN:
+                transpose(ret,img,0,0);
+                break;
+            case DIRECTION_UP:
+                transpose(ret,img,0,amount);
+                break;
+        }
+
 
         return ret;
     }
@@ -58,6 +126,11 @@ public class GraphBuilder {
         double estimatedXSpace = 0;
         for(String ac : data){estimatedXSpace = Math.max(estimatedXSpace,ac.length()*font.getSize());}
         return new double[]{estimatedXSpace/2,estimatedYSpace/2};
+    }
+
+    private static float[] getEstimative(Font font, String data, Graphics2D context){
+        FontMetrics metr = context.getFontMetrics();
+        return new float[]{metr.stringWidth(data),metr.getHeight()};
     }
 
     private static double[] genTransSub(int dir){
@@ -77,6 +150,7 @@ public class GraphBuilder {
     public static BufferedImage buildAuxiliarLines(double[][][] data, Color auxColor, double[] intervals, int dX, int dY){
         return buildAuxiliarLines(new BufferedImage(dX, dY,BufferedImage.TYPE_4BYTE_ABGR),data,auxColor,intervals);
     }
+
     public static BufferedImage buildAuxiliarLines(BufferedImage image, double[][][] data, Color auxColor, double[] intervals){
         Graphics2D graphics2D = image.createGraphics();
         int dX = image.getWidth(), dY = image.getHeight();
@@ -97,6 +171,7 @@ public class GraphBuilder {
     public static BufferedImage buildPureGraph(double[][][] data, List<Color> colors, int dX, int dY){
         return buildPureGraph(new BufferedImage(dX,dY,BufferedImage.TYPE_4BYTE_ABGR),data,colors);
     }
+
     public static BufferedImage buildPureGraph(BufferedImage image, double[][][] data, List<Color> colors){
         Graphics2D graphics2D = image.createGraphics();
         int dX = image.getWidth(), dY = image.getHeight();
@@ -118,6 +193,7 @@ public class GraphBuilder {
 
         return image;
     }
+
     protected static final int MIN_X = 0, MIN_Y = 1, MAX_X = 2, MAX_Y = 3;
     static double[] getBoundaries (double[][][] data){
         double minX = 0, minY = 0, maxX = 0, maxY = 0;
@@ -190,5 +266,73 @@ public class GraphBuilder {
         g.drawLine(w,h,w, 0);
 
     }
+    public static final int ORIENTATION_X_PARALLEL = 0;
+    public static final int ORIENTATION_Y_PARALLEL = 1;
 
+    public static int[] generateDirectionalTranslation(int dX, int dY, int min, int max, int textLen, int textHei, int orientation){
+        int[] ret = new int[2];
+        switch (orientation){
+            case ORIENTATION_Y_PARALLEL:
+                switch (dX){
+                    case DIRECTION_RIGHT:
+                        ret[0] = max;
+                        break;
+                    case DIRECTION_LEFT:
+                        ret[0] = min - textLen;
+                        break;
+                }
+                switch (dY){
+                    case DIRECTION_UP:
+                        ret[1] = min*2; //fixme this should not be this way
+                        break;
+                    case DIRECTION_DOWN:
+                        ret[1] = min;
+                        break;
+                }
+                break;
+            case ORIENTATION_X_PARALLEL:
+                switch (dX){
+                    case DIRECTION_RIGHT:
+                        //begin exactly at right corner
+                        break;
+                    case DIRECTION_LEFT:
+                        ret[0] = min;
+                        break;
+                }
+                switch (dY){
+                    case DIRECTION_UP:
+                        ret[1] = min - textHei/2 - /*To avoid overlap*/ (textHei/4);
+                        break;
+                    case DIRECTION_DOWN:
+                        ret[1] = max + textHei/2 + textHei/4;
+                        break;
+                }
+        }
+        return ret;
+    }
+
+    private static int[] generateVectorTowardsDirection(int dir){
+        switch (dir){
+            case DIRECTION_DOWN:
+                return new int[]{0,1};
+            case DIRECTION_UP:
+                return new int[]{0,0};
+            case DIRECTION_LEFT:
+                return new int[]{0,0};
+            case DIRECTION_RIGHT:
+                return new int[]{1,0};
+        }
+        return new int[2];
+    }
+
+    public static BufferedImage generateGraphAndSubs(
+            double[][][] data, List<Color> colors, int dX, int dY,
+            double[] captionInterval, Font captionFont, int captionDirectionX, int captionDirectionY,
+            List<String> captionContentX, List<String> captionContentY, int additionalPixelsForCaption,
+            Color auxiliarLinesColor, Color captionColor){
+        BufferedImage graph = buildPureGraph(data,colors,dX,dY);
+        transpose(graph, buildAuxiliarLines(data, auxiliarLinesColor, captionInterval, dX, dY));
+        graph = buildAxisCaptions(graph,data,captionInterval,captionContentX,captionContentY,captionDirectionX,captionDirectionY,additionalPixelsForCaption,captionColor,captionFont);
+        return graph;
+    }
 }

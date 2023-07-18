@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,16 +25,23 @@ public class GraphBuilderTest {
         //lines.get(2).add(new Double[]{1.,4.});
         //lines.get(2).add(new Double[]{2.,16.});
         //lines.get(2).add(new Double[]{3.,32.});
+        List<String> sX = new ArrayList<>();
+        List<String> sY = new ArrayList<>();
+
+        NumberFormat ins = java.text.NumberFormat.getInstance();
+        ins.setMaximumFractionDigits(2);
 
         for (double i = - Math.PI; i <= Math.PI; i+= Math.PI/100) {
             lines.get(0).add(new Double[]{i,Math.sin(i)});
             lines.get(1).add(new Double[]{i,Math.cos(i)});
             lines.get(2).add(new Double[]{i,Math.pow(i,2)/5.0});
             lines.get(3).add(new Double[]{i,Math.sqrt(Math.abs(i))});
+            sX.add(ins.format(i));
         }
-        List<String> subs = Arrays.asList("Sin","Cos","Sq","Sqrt(abs)");
+        sY.add("h");
 
         double[][][] data = GraphBuilder.toDataFormat(lines);
+        double[] interval = {3.14 / 3, 3.0 / 6};
 
         ArrayList<Color> colors = new ArrayList<Color>();
         colors.add(Color.blue);
@@ -41,13 +49,11 @@ public class GraphBuilderTest {
         colors.add(Color.magenta);
         colors.add(Color.green);
 
-        BufferedImage graph = GraphBuilder.buildPureGraph(data,colors,500,500);
-        BufferedImage aux = GraphBuilder.buildAuxiliarLines(data,Color.gray,new double[]{3.14/3,3.0/6},500,500);
-        BufferedImage transpose = GraphBuilder.transpose(graph, aux);
-        GraphBuilder.buildCorners(transpose);
-        BufferedImage sub = GraphBuilder.buildSubs(transpose,subs,colors,.25,GraphBuilder.DIRECTION_RIGHT);
-        GraphBuilder.buildCorners(graph);
-        TestWindow testWindow = new TestWindow(sub);
+        Font con = Font.decode("consolas");
+        Font font = new Font(con.getFontName(),Font.PLAIN,12);
+
+        BufferedImage num = GraphBuilder.generateGraphAndSubs(data,colors,600,600,interval,font,GraphBuilder.DIRECTION_LEFT,GraphBuilder.DIRECTION_DOWN,sX,sY,40,Color.gray,Color.black);
+        TestWindow testWindow = new TestWindow(num);
         testWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         testWindow.pack();
 
