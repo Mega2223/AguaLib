@@ -13,6 +13,24 @@ public class VectorEquations {
         return ret;
     }
 
+    public static int[] multVecConst(int[] vec, int c){
+        for (int i = 0; i < vec.length; i++) {
+            vec[i]*=c;
+        }
+        return vec;
+    }
+
+    public static void addToVector(float[] vec1, float[] vec2){
+        for (int i = 0; i < vec1.length; i++) {
+            vec1[i]+=vec2[i];
+        }
+    }
+    public static void addToVector(double[] vec1, double[] vec2){
+        for (int i = 0; i < vec1.length; i++) {
+            vec1[i]+=vec2[i];
+        }
+    }
+
     public static void printVector(float[] vectir){
         StringBuilder stringBuilder = new StringBuilder("V=[");
         for (int i = 0; i < vectir.length-1; i++) {
