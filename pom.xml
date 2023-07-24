@@ -4,9 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.Mega2223</groupId>
+    <groupId>net.mega2223</groupId>
     <artifactId>aguaLib</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
+    <packaging>jar</packaging>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://github.com/Mega2223/aguaLib/blob/main/LICENSE</url>
+        </license>
+    </licenses>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -19,9 +27,9 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <archive>
-                        <manifest>
-                            <mainClass>mathTest</mainClass>
-                        </manifest>
+                        <!--<manifest>
+                           <mainClass>mathTest</mainClass>
+                        </manifest>-->
                     </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>

@@ -7,7 +7,7 @@ import java.util.List;
 public class GraphBuilder {
 
     public static final int DIRECTION_UP = 0, DIRECTION_DOWN = 1, DIRECTION_LEFT = 2, DIRECTION_RIGHT = 3;
-
+    @Deprecated //?????
     public static BufferedImage buildSubs(BufferedImage renderedGraph, List<String> subs, List<Color> colors, double additionalProportion, int direction){
         int dX = renderedGraph.getWidth(),dY = renderedGraph.getHeight();
         int sparePixels;
@@ -196,7 +196,7 @@ public class GraphBuilder {
 
     protected static final int MIN_X = 0, MIN_Y = 1, MAX_X = 2, MAX_Y = 3;
     static double[] getBoundaries (double[][][] data){
-        double minX = 0, minY = 0, maxX = 0, maxY = 0;
+        double minX = data[0][0][0], minY = data[0][0][1], maxX = data[0][0][0], maxY = data[0][0][1];
         for (int i = 0; i < data.length; i++) {
             for (int l = 0; l < data[i].length; l++) {
                 minX = Math.min(minX,data[i][l][0]);
