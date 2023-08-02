@@ -6,7 +6,7 @@
 
     <groupId>net.mega2223</groupId>
     <artifactId>aguaLib</artifactId>
-    <version>1.3.0</version>
+    <version>1.3.2</version>
     <packaging>jar</packaging>
 
     <licenses>
@@ -24,6 +24,7 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId> <!-- No idea why maven is complaining about the lack of a groupID -->
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <archive>

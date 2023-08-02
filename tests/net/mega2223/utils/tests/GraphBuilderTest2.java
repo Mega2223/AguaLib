@@ -34,9 +34,9 @@ public class GraphBuilderTest2 {
         List<String> sY = new ArrayList<>();
         sX.add("0"); sY.add("0");
 
-        double[] interval = {1E11,1E8};
+        double[] interval = {(1.66973004E12-1.54349964E12)/10,(3.574679079E9-4.18853881E8)/10};
 
-        BufferedImage num = GraphBuilder.generateGraphAndSubs(data,colors,600,600,interval,font,GraphBuilder.DIRECTION_LEFT,GraphBuilder.DIRECTION_DOWN,sX,sY,40,Color.gray,Color.black);
+        BufferedImage num = GraphBuilder.generateGraphAndSubs(data,colors,200,400,interval,font,GraphBuilder.DIRECTION_RIGHT,GraphBuilder.DIRECTION_DOWN,sX,sY,40,Color.gray,Color.black);
         GraphBuilderTest.TestWindow testWindow = new GraphBuilderTest.TestWindow(num);
         testWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         testWindow.pack();

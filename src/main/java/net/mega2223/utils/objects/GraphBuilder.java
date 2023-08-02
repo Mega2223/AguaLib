@@ -69,18 +69,17 @@ public class GraphBuilder {
             double tr = (x - boundaries[MIN_X])/(ranges[0])*sX;
             String str = xAxis.get(g % xAxis.size());
             float[] estimative = getEstimative(font, str, graphics2D);
-            int[] tra = generateDirectionalTranslation(dX,dY,amount,sX,(int)estimative[1]-5,(int)estimative[1],ORIENTATION_X_PARALLEL);
-
+            int[] tra = generateDirectionalTranslation(dX,dY,amount,sY,(int)estimative[1]-5,(int)estimative[1],ORIENTATION_X_PARALLEL);
             graphics2D.drawString(str, (int) tr + tra[0] , tra[1]);
             g++;
         }
+
         g=0;
         for(double y = boundaries[MAX_Y]-interval[1]; y > boundaries[MIN_Y] - interval[1]; y-= interval[1]) {
             double tr = (y - boundaries[MIN_Y])/(ranges[1])*sY;
             String str = yAxis.get(g % yAxis.size());
             float[] estimative = getEstimative(font, str, graphics2D);
-            int[] tra = generateDirectionalTranslation(dX,dY,amount,sY,(int)estimative[0]+5,(int)estimative[1],ORIENTATION_Y_PARALLEL);
-            System.out.println(tra[1]);
+            int[] tra = generateDirectionalTranslation(dX,dY,amount,sX,(int)estimative[0]+5,(int)estimative[1],ORIENTATION_Y_PARALLEL);
             graphics2D.drawString(str,tra[0],(int)tr + tra[1]);
             g++;
         }
@@ -162,8 +161,8 @@ public class GraphBuilder {
             graphics2D.drawLine((int) tr,0, (int) tr,dY);
         }
         for(double y = boundaries[MIN_Y]; y < boundaries[MAX_Y]; y+= intervals[1]) {
-            double tr = dX - (y - boundaries[MIN_Y]) / (ranges[1]) * dY;
-            graphics2D.drawLine(0, (int) tr, dY, (int) tr);
+            double tr = (y - boundaries[MIN_Y])/ranges[1] * dY;
+            graphics2D.drawLine(0,(int) tr, dX, (int) tr);
         }
         return image;
     }
@@ -269,29 +268,30 @@ public class GraphBuilder {
     public static final int ORIENTATION_X_PARALLEL = 0;
     public static final int ORIENTATION_Y_PARALLEL = 1;
 
-    public static int[] generateDirectionalTranslation(int dX, int dY, int min, int max, int textLen, int textHei, int orientation){
+    public static int[] generateDirectionalTranslation(int dirX, int dirY, int min, int max, int textLen, int textHei, int orientation){
         int[] ret = new int[2];
         switch (orientation){
             case ORIENTATION_Y_PARALLEL:
-                switch (dX){
+                switch (dirX){
                     case DIRECTION_RIGHT:
                         ret[0] = max;
+                        System.out.println(ret[0]);
                         break;
                     case DIRECTION_LEFT:
                         ret[0] = min - textLen;
                         break;
                 }
-                switch (dY){
+                switch (dirY){
                     case DIRECTION_UP:
                         ret[1] = min*2; //fixme this should not be this way
                         break;
                     case DIRECTION_DOWN:
-                        ret[1] = min;
+                        /*ret[1] = 0;*/
                         break;
                 }
                 break;
             case ORIENTATION_X_PARALLEL:
-                switch (dX){
+                switch (dirX){
                     case DIRECTION_RIGHT:
                         //begin exactly at right corner
                         break;
@@ -299,12 +299,12 @@ public class GraphBuilder {
                         ret[0] = min;
                         break;
                 }
-                switch (dY){
+                switch (dirY){
                     case DIRECTION_UP:
                         ret[1] = min - textHei/2 - /*To avoid overlap*/ (textHei/4);
                         break;
                     case DIRECTION_DOWN:
-                        ret[1] = max + textHei/2 + textHei/4;
+                        ret[1] = max + textHei + (textHei/8);
                         break;
                 }
         }
