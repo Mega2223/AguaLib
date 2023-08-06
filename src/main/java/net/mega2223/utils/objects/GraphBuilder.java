@@ -51,10 +51,10 @@ public class GraphBuilder {
         return ret;
     }
 
-    public static BufferedImage buildAxisCaptions(BufferedImage renderedGraph, double[][][] data, double[] interval, List<String> xAxis, List<String> yAxis, int dX, int dY, int amount, Color color, Font font){
+    public static BufferedImage buildAxisCaptions(BufferedImage renderedGraph, double[][][] data, double[] interval, List<String> xAxis, List<String> yAxis, int dirX, int dirY, int amount, Color color, Font font){
 
         final int sX = renderedGraph.getWidth(), sY = renderedGraph.getHeight();
-        BufferedImage ret = addPixelsToImage(addPixelsToImage(renderedGraph,dX, amount),dY, amount);int[] imageTranslation = new int[2];
+        BufferedImage ret = addPixelsToImage(addPixelsToImage(renderedGraph,dirX, amount),dirY, amount);int[] imageTranslation = new int[2];
 
         double[] boundaries = getBoundaries(data);
 
@@ -69,7 +69,7 @@ public class GraphBuilder {
             double tr = (x - boundaries[MIN_X])/(ranges[0])*sX;
             String str = xAxis.get(g % xAxis.size());
             float[] estimative = getEstimative(font, str, graphics2D);
-            int[] tra = generateDirectionalTranslation(dX,dY,amount,sY,(int)estimative[1]-5,(int)estimative[1],ORIENTATION_X_PARALLEL);
+            int[] tra = generateDirectionalTranslation(dirX,dirY,amount,sY,(int)estimative[1]-5,(int)estimative[1],ORIENTATION_X_PARALLEL);
             graphics2D.drawString(str, (int) tr + tra[0] , tra[1]);
             g++;
         }
@@ -79,7 +79,7 @@ public class GraphBuilder {
             double tr = (y - boundaries[MIN_Y])/(ranges[1])*sY;
             String str = yAxis.get(g % yAxis.size());
             float[] estimative = getEstimative(font, str, graphics2D);
-            int[] tra = generateDirectionalTranslation(dX,dY,amount,sX,(int)estimative[0]+5,(int)estimative[1],ORIENTATION_Y_PARALLEL);
+            int[] tra = generateDirectionalTranslation(dirX,dirY,amount,sX,(int)estimative[0]+5,(int)estimative[1],ORIENTATION_Y_PARALLEL);
             graphics2D.drawString(str,tra[0],(int)tr + tra[1]);
             g++;
         }
@@ -283,10 +283,10 @@ public class GraphBuilder {
                 }
                 switch (dirY){
                     case DIRECTION_UP:
-                        ret[1] = min*2; //fixme this should not be this way
+                        ret[1] = min*2;
                         break;
                     case DIRECTION_DOWN:
-                        /*ret[1] = 0;*/
+                        ret[1] = min;
                         break;
                 }
                 break;

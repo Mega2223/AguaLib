@@ -6,7 +6,7 @@
 
     <groupId>net.mega2223</groupId>
     <artifactId>aguaLib</artifactId>
-    <version>1.3.2</version>
+    <version>1.3.4</version>
     <packaging>jar</packaging>
 
     <licenses>
