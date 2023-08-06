@@ -69,7 +69,7 @@ public class GraphBuilder {
             double tr = (x - boundaries[MIN_X])/(ranges[0])*sX;
             String str = xAxis.get(g % xAxis.size());
             float[] estimative = getEstimative(font, str, graphics2D);
-            int[] tra = generateDirectionalTranslation(dirX,dirY,amount,sY,(int)estimative[1]-5,(int)estimative[1],ORIENTATION_X_PARALLEL);
+            int[] tra = generateDirectionalTranslation(dirX,dirY,amount,sY,(int)estimative[1]-5,(int)estimative[1],ORIENTATION_X_PARALLEL, (int) (sX*(interval[0]/ranges[0])));
             graphics2D.drawString(str, (int) tr + tra[0] , tra[1]);
             g++;
         }
@@ -79,7 +79,7 @@ public class GraphBuilder {
             double tr = (y - boundaries[MIN_Y])/(ranges[1])*sY;
             String str = yAxis.get(g % yAxis.size());
             float[] estimative = getEstimative(font, str, graphics2D);
-            int[] tra = generateDirectionalTranslation(dirX,dirY,amount,sX,(int)estimative[0]+5,(int)estimative[1],ORIENTATION_Y_PARALLEL);
+            int[] tra = generateDirectionalTranslation(dirX,dirY,amount,sX,(int)estimative[0]+4,(int)estimative[1],ORIENTATION_Y_PARALLEL,(int) (sY*(interval[1]/ranges[1])));
             graphics2D.drawString(str,tra[0],(int)tr + tra[1]);
             g++;
         }
@@ -268,7 +268,7 @@ public class GraphBuilder {
     public static final int ORIENTATION_X_PARALLEL = 0;
     public static final int ORIENTATION_Y_PARALLEL = 1;
 
-    public static int[] generateDirectionalTranslation(int dirX, int dirY, int min, int max, int textLen, int textHei, int orientation){
+    public static int[] generateDirectionalTranslation(int dirX, int dirY, int min, int max, int textLen, int textHei, int orientation, int blockSize){
         int[] ret = new int[2];
         switch (orientation){
             case ORIENTATION_Y_PARALLEL:
@@ -286,7 +286,7 @@ public class GraphBuilder {
                         ret[1] = min*2;
                         break;
                     case DIRECTION_DOWN:
-                        ret[1] = min;
+                        ret[1] = blockSize;
                         break;
                 }
                 break;
